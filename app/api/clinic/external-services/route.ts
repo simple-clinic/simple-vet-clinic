@@ -1,0 +1,6 @@
+import { getD1 } from "@/db";
+import { authorizeClinicRequest } from "@/lib/clinic-auth";
+import { z } from "zod";
+export const dynamic = "force-dynamic";
+const schema = z.object({ serviceType: z.string().trim().min(1).max(120), description: z.string().trim().max(500).default(""), amountIqd: z.number().int().min(0).max(2_000_000_000), serviceDate: z.string().trim().regex(/^\d{4}-\d{2}-\d{2}$/).default(new Date().toISOString().slice(0,10)) });
+export async function POST(request: Request) { const auth = await authorizeClinicRequest(); if (!auth.ok) return Response.json({error:auth.message},{status:auth.status}); try { const parsed=schema.safeParse(await request.json()); if(!parsed.success) return Response.json({error:"أكمل نوع الخدمة والمبلغ."},{status:400}); const id=crypto.randomUUID(); await getD1().prepare("INSERT INTO external_services (id,service_type,description,amount_iqd,service_date) VALUES (?,?,?,?,?)").bind(id,parsed.data.serviceType,parsed.data.description,parsed.data.amountIqd,parsed.data.serviceDate).run(); return Response.json({id,message:"تم تسجيل الخدمة الخارجية."},{status:201}); } catch(e){return Response.json({error:e instanceof Error?e.message:"تعذّر الحفظ."},{status:500});} }
