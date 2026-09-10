@@ -1,16 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  CalendarClock,
-  LockKeyhole,
-  MapPin,
-  PawPrint,
-  Phone,
-  ShieldCheck,
-  Stethoscope,
-  Syringe,
-} from "lucide-react";
+import { MapPin, Phone, Plus } from "lucide-react";
 import {
   defaultClinicSettings,
   type ClinicSettings,
@@ -59,7 +50,7 @@ export function PortalHome() {
                 className="h-full w-full object-cover"
               />
             ) : (
-              <PawPrint className="size-7" />
+              <Plus className="size-8" strokeWidth={3} />
             )}
           </span>
           <div>
@@ -71,70 +62,11 @@ export function PortalHome() {
             </p>
           </div>
         </div>
-        <a href="/clinic" className="rounded-full border border-[#d9def1] bg-white/80 px-4 py-2 text-sm font-black text-[var(--portal-primary)] shadow-sm backdrop-blur">دخول الإدارة</a>
       </header>
-      <section className="mx-auto grid min-h-[calc(100vh-96px)] max-w-7xl items-center gap-12 px-5 pb-16 pt-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
-        <div className="relative order-2 lg:order-2">
+      <section className="mx-auto flex min-h-[calc(100vh-96px)] max-w-2xl items-center justify-center px-5 pb-16 pt-6 lg:px-10">
+        <div className="relative w-full">
           <div className="absolute -inset-10 -z-10 rotate-3 rounded-[3rem] bg-gradient-to-br from-[#5b4bdb]/10 to-[#55d6be]/20" />
           <PortalClient settings={settings} />
-        </div>
-        <div className="order-1 lg:order-1 lg:pl-10">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#d9def1] bg-white/80 px-4 py-2 text-sm font-bold text-[var(--portal-primary)] shadow-sm backdrop-blur">
-            <ShieldCheck className="size-4" />
-            بوابة آمنة ومحدودة للمربي
-          </div>
-          <h1 className="max-w-2xl text-4xl font-black leading-[1.25] tracking-tight sm:text-5xl lg:text-6xl">
-            ملف حيوانك
-            <span className="relative mx-2 inline-block text-[var(--portal-primary)]">
-              أوضح وأسهل
-              <span className="absolute -bottom-2 right-0 h-1.5 w-full rounded-full bg-[var(--portal-accent)]" />
-            </span>
-          </h1>
-          <p className="mt-7 max-w-xl text-lg leading-9 text-[#60727b]">
-            {settings.portalDescription}
-          </p>
-          <section className="mt-7 max-w-xl rounded-[2rem] border border-[#dfe3f2] bg-[#111b3a] p-6 text-white shadow-xl">
-            <div className="flex items-center gap-2">
-              <Stethoscope className="size-5 text-[var(--portal-accent)]" />
-              <h2 className="text-lg font-black">{settings.clinicName}</h2>
-            </div>
-            <div className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
-              <div className="rounded-2xl bg-white/8 p-4">
-                <strong className="block text-[#56d6c9]">السجل الطبي</strong>
-                <span className="mt-1 block text-xs text-white/65">متابعة الزيارات والحالات</span>
-              </div>
-              <div className="rounded-2xl bg-white/8 p-4">
-                <strong className="block text-[#56d6c9]">الوقاية والمواعيد</strong>
-                <span className="mt-1 block text-xs text-white/65">اللقاحات وجرعات الديدان</span>
-              </div>
-            </div>
-          </section>
-          <div className="mt-9 grid max-w-xl gap-3 sm:grid-cols-3">
-            {[
-              {
-                icon: CalendarClock,
-                title: "المواعيد",
-                text: "السابق والقادم",
-              },
-              { icon: Syringe, title: "الوقاية", text: "لقاح وديدان وحشرات" },
-              {
-                icon: LockKeyhole,
-                title: "خصوصية",
-                text: "حسب إعدادات العيادة",
-              },
-            ].map((item) => (
-              <article
-                key={item.title}
-                className="rounded-[1.4rem] border border-[#dfe3f2] bg-white/75 p-4 shadow-sm backdrop-blur"
-              >
-                <item.icon className="mb-3 size-5 text-[var(--portal-primary)]" />
-                <h2 className="font-bold">{item.title}</h2>
-                <p className="mt-1 text-xs leading-5 text-[#6b7b82]">
-                  {item.text}
-                </p>
-              </article>
-            ))}
-          </div>
         </div>
       </section>
       <footer className="border-t border-[#dfe3f2] bg-white/75 px-5 py-6 backdrop-blur">
