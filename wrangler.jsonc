@@ -13,7 +13,7 @@
     {
       "binding": "DB",
       "database_name": "simple-vet-db",
-      "database_id": "00000000-0000-4000-8000-000000000000",
+      "database_id": "bee285ed-c9fa-45e9-979f-99abe64887a1",
       "migrations_dir": "./drizzle"
     }
   ],
