@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { PawPrint } from "lucide-react";
+import { Plus } from "lucide-react";
 import { hasValidClinicSession } from "@/lib/clinic-auth";
 import { ClinicDashboard } from "./clinic-dashboard";
 
@@ -21,7 +21,7 @@ export function ClinicLoading() {
   return (
     <main className="grid min-h-screen place-items-center bg-[#f3f6ff]">
       <div className="flex items-center gap-3 font-bold text-[#2563eb]">
-        <PawPrint className="size-6 animate-pulse" />
+        <Plus className="size-7 animate-pulse" strokeWidth={3} />
         جارٍ فتح لوحة Simple Vet Clinic...
       </div>
     </main>
