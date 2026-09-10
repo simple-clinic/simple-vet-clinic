@@ -639,7 +639,7 @@ function Sidebar({
                   className="h-full w-full object-cover"
                 />
               ) : (
-                <PawPrint className="size-6" />
+                <Plus className="size-7" strokeWidth={3} />
               )}
             </span>
             <div>
