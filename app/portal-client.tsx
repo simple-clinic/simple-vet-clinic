@@ -11,6 +11,7 @@ import {
   LockKeyhole,
   Megaphone,
   PawPrint,
+  Plus,
   Search,
   ShieldCheck,
   Stethoscope,
@@ -154,7 +155,7 @@ export function PortalClient({ settings }: { settings: ClinicSettings }) {
               className="grid size-12 shrink-0 place-items-center rounded-[1.2rem] bg-[#eeecff]"
               style={{ color: settings.portalPrimary }}
             >
-              <PawPrint className="size-6" />
+              <Plus className="size-7" strokeWidth={3} />
             </span>
           </div>
           <form onSubmit={submit} className="space-y-5">
