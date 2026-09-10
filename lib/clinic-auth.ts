@@ -46,9 +46,20 @@ async function storedPassword() {
   } catch { return { hash: "", salt: "" }; }
 }
 
+async function sessionSecret() {
+  const configured = runtimeValue("CLINIC_SESSION_SECRET");
+  if (configured) return configured;
+  const db = getD1();
+  const stored = await db.prepare("SELECT value FROM clinic_settings WHERE key = 'sessionSecret'").first<{ value: string }>();
+  if (stored?.value) return stored.value;
+  const generated = `${crypto.randomUUID()}${crypto.randomUUID()}`;
+  await db.prepare("INSERT INTO clinic_settings (key,value,updated_at) VALUES ('sessionSecret',?,CURRENT_TIMESTAMP) ON CONFLICT(key) DO NOTHING").bind(generated).run();
+  const saved = await db.prepare("SELECT value FROM clinic_settings WHERE key = 'sessionSecret'").first<{ value: string }>();
+  return saved?.value || generated;
+}
+
 async function signature(payload: string) {
-  const secret = runtimeValue("CLINIC_SESSION_SECRET");
-  if (!secret) return "";
+  const secret = await sessionSecret();
   const key = await crypto.subtle.importKey(
     "raw",
     new TextEncoder().encode(secret),
@@ -105,7 +116,7 @@ export async function hasValidClinicSession() {
 
 export async function authorizeClinicRequest(): Promise<AuthResult> {
   const stored = await storedPassword();
-  if ((!runtimeValue("CLINIC_ADMIN_PASSWORD") && !stored.hash) || !runtimeValue("CLINIC_SESSION_SECRET")) {
+  if (!runtimeValue("CLINIC_ADMIN_PASSWORD") && !stored.hash) {
     return { ok: false, status: 503, message: "حماية لوحة العيادة غير مهيأة بعد." };
   }
   if (!(await hasValidClinicSession())) {
