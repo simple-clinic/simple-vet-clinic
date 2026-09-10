@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Loader2, PawPrint, Printer } from "lucide-react";
+import { Loader2, Plus, Printer } from "lucide-react";
 import type { PatientDetail } from "@/app/clinic/types";
 import { Button } from "@/components/ui/button";
 import { petPhotoUrl } from "@/lib/pet-photo";
@@ -47,7 +47,7 @@ export function PrintRecord({ patientId }: { patientId: string }) {
     <main className="print-record mx-auto min-h-screen max-w-5xl bg-white p-6 text-[#102331] sm:p-10">
       <div className="no-print mb-6 flex justify-end"><Button type="button" className="bg-[#0b766f]" onClick={() => window.print()}><Printer className="size-4" />طباعة / حفظ بصيغة PDF</Button></div>
       <header className="flex items-center justify-between border-b-4 border-[#0b766f] pb-5">
-        <div className="flex items-center gap-3"><span className="grid size-12 place-items-center rounded-xl bg-[#111b3a] text-[#56d6c9]"><PawPrint className="size-7" /></span><div><h1 className="text-2xl font-black">Simple Vet Clinic</h1><p className="text-sm text-muted-foreground">السجل الطبي البيطري الكامل</p></div></div>
+        <div className="flex items-center gap-3"><span className="grid size-12 place-items-center rounded-xl bg-[#111b3a] text-[#56d6c9]"><Plus className="size-8" strokeWidth={3} /></span><div><h1 className="text-2xl font-black">Simple Vet Clinic</h1><p className="text-sm text-muted-foreground">السجل الطبي البيطري الكامل</p></div></div>
         <div className="text-left text-sm"><p>تاريخ الطباعة</p><strong>{date(new Date().toISOString())}</strong></div>
       </header>
 
